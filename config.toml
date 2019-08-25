@@ -1,4 +1,4 @@
-baseurl = "http://tdl-jturner.github.io"
+baseurl = "https://tdl-jturner.github.io"
 title = "tdl-jturner"
 theme = "hugo-coder"
 languagecode = "en"
@@ -42,11 +42,6 @@ pygmentscodefencesguesssyntax = true
     icon = "fab fa-linkedin fa-2x"
     weight = 1
     url = "https://linkedin.com/in/turnerjosh"
-[[params.social]]
-    name = "Twitter"
-    icon = "fab fa-twitter fa-2x"
-    weight = 3
-    url = "https://twitter.com/tdl_jturner/"
 
 # Menu links
 [[menu.main]]
