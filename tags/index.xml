@@ -6,9 +6,55 @@
     <description>Recent content in Tags on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <lastBuildDate>Wed, 21 Aug 2019 15:54:38 -0700</lastBuildDate>
     
 	<atom:link href="https://tdl-jturner.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>casquatch</title>
+      <link>https://tdl-jturner.github.io/tags/casquatch/</link>
+      <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
+      
+      <guid>https://tdl-jturner.github.io/tags/casquatch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cassandra</title>
+      <link>https://tdl-jturner.github.io/tags/cassandra/</link>
+      <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
+      
+      <guid>https://tdl-jturner.github.io/tags/cassandra/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>datastax</title>
+      <link>https://tdl-jturner.github.io/tags/datastax/</link>
+      <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
+      
+      <guid>https://tdl-jturner.github.io/tags/datastax/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>opensource</title>
+      <link>https://tdl-jturner.github.io/tags/opensource/</link>
+      <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
+      
+      <guid>https://tdl-jturner.github.io/tags/opensource/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tmotech</title>
+      <link>https://tdl-jturner.github.io/tags/tmotech/</link>
+      <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
+      
+      <guid>https://tdl-jturner.github.io/tags/tmotech/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

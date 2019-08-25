@@ -1,34 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>tdl-jturner</title>
-    <link>https://tdl-jturner.github.io/</link>
-    <description>Recent content on tdl-jturner</description>
+    <title>Events on tdl-jturner</title>
+    <link>https://tdl-jturner.github.io/events/</link>
+    <description>Recent content in Events on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 25 Aug 2019 14:40:54 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 26 Jun 2019 15:38:02 -0700</lastBuildDate>
     
-	<atom:link href="https://tdl-jturner.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://tdl-jturner.github.io/events/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>About</title>
-      <link>https://tdl-jturner.github.io/about/</link>
-      <pubDate>Sun, 25 Aug 2019 14:40:54 -0700</pubDate>
-      
-      <guid>https://tdl-jturner.github.io/about/</guid>
-      <description>Coming Soon</description>
-    </item>
-    
-    <item>
-      <title>Announcing Casquatch 2.0</title>
-      <link>https://tdl-jturner.github.io/posts/casquatch20/</link>
-      <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
-      
-      <guid>https://tdl-jturner.github.io/posts/casquatch20/</guid>
-      <description>I&amp;rsquo;m very excited to announce the 2.0 release of Casquatch! With it comes a full rewrite to align with the 4.x DataStax OSS Driver, new manual (https://tmobile.github.io/casquatch), annotations, spring integration, failover policy, and even more streamlined code.
-Get yourself a cup of coffee and run through the tutorial (https://tmobile.github.io/casquatch/examples/springrest/). You&amp;rsquo;ll be up and running with a full Spring Rest DAO in just a few minutes.</description>
-    </item>
     
     <item>
       <title>Seattle Cassandra Users: An OSS Java Abstraction Layer for Cassandra</title>
