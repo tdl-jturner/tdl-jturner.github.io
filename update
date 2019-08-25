@@ -1,0 +1,5 @@
+hugo -t hugo-coder
+cd public
+git add -f .
+git commit -m "Updated From Source"
+git push
