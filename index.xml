@@ -48,5 +48,14 @@ Get yourself a cup of coffee and run through the tutorial (https://tmobile.githu
       <description>Date : May 22, 2019 Location: Washington, DC Event: DataStax Accelerate 2019 Video: YouTube Slides: SlideShare  Abstract Project Casquatch is a database abstraction layer with code generation designed to streamline Cassandra development. Out of the box it comes pre-tuned with high available policies including load balancing, geo-redundancy, connection pooling, etc., sitting on top of the DataStax driver using native APIs. All of this is abstracted behind the ever prevalent POJO.</description>
     </item>
     
+    <item>
+      <title>Introducing Project Casquatch</title>
+      <link>https://tdl-jturner.github.io/posts/casquatch-open-source/</link>
+      <pubDate>Wed, 25 Jul 2018 16:04:24 -0700</pubDate>
+      
+      <guid>https://tdl-jturner.github.io/posts/casquatch-open-source/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
