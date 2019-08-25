@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on tdl-jturner</title>
-    <link>https://tdl-jturner.github.io/tags/</link>
+    <link>http://thedigitallink.net/tags/</link>
     <description>Recent content in Tags on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 21 Aug 2019 15:54:38 -0700</lastBuildDate>
     
-	<atom:link href="https://tdl-jturner.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://thedigitallink.net/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>casquatch</title>
-      <link>https://tdl-jturner.github.io/tags/casquatch/</link>
+      <link>http://thedigitallink.net/tags/casquatch/</link>
       <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/tags/casquatch/</guid>
+      <guid>http://thedigitallink.net/tags/casquatch/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cassandra</title>
-      <link>https://tdl-jturner.github.io/tags/cassandra/</link>
+      <link>http://thedigitallink.net/tags/cassandra/</link>
       <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/tags/cassandra/</guid>
+      <guid>http://thedigitallink.net/tags/cassandra/</guid>
       <description></description>
     </item>
     
     <item>
       <title>datastax</title>
-      <link>https://tdl-jturner.github.io/tags/datastax/</link>
+      <link>http://thedigitallink.net/tags/datastax/</link>
       <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/tags/datastax/</guid>
+      <guid>http://thedigitallink.net/tags/datastax/</guid>
       <description></description>
     </item>
     
     <item>
       <title>opensource</title>
-      <link>https://tdl-jturner.github.io/tags/opensource/</link>
+      <link>http://thedigitallink.net/tags/opensource/</link>
       <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/tags/opensource/</guid>
+      <guid>http://thedigitallink.net/tags/opensource/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tmotech</title>
-      <link>https://tdl-jturner.github.io/tags/tmotech/</link>
+      <link>http://thedigitallink.net/tags/tmotech/</link>
       <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/tags/tmotech/</guid>
+      <guid>http://thedigitallink.net/tags/tmotech/</guid>
       <description></description>
     </item>
     

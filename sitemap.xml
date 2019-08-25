@@ -3,86 +3,86 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://tdl-jturner.github.io/about/</loc>
+    <loc>http://thedigitallink.net/about/</loc>
     <lastmod>2019-08-25T14:40:54-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/</loc>
+    <loc>http://thedigitallink.net/</loc>
     <lastmod>2019-08-25T14:40:54-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/posts/casquatch20/</loc>
+    <loc>http://thedigitallink.net/posts/casquatch20/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/posts/</loc>
-    <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://tdl-jturner.github.io/tags/</loc>
+    <loc>http://thedigitallink.net/posts/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/tags/casquatch/</loc>
+    <loc>http://thedigitallink.net/tags/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/tags/cassandra/</loc>
+    <loc>http://thedigitallink.net/tags/casquatch/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/tags/datastax/</loc>
+    <loc>http://thedigitallink.net/tags/cassandra/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/tags/opensource/</loc>
+    <loc>http://thedigitallink.net/tags/datastax/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/tags/tmotech/</loc>
+    <loc>http://thedigitallink.net/tags/opensource/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/events/</loc>
+    <loc>http://thedigitallink.net/tags/tmotech/</loc>
+    <lastmod>2019-08-21T15:54:38-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/events/</loc>
     <lastmod>2019-06-26T15:38:02-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/events/2019-06-26-cassandraseattleusers-casquatch/</loc>
+    <loc>http://thedigitallink.net/events/2019-06-26-cassandraseattleusers-casquatch/</loc>
     <lastmod>2019-06-26T15:38:02-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/events/2019-05-22-datastaxaccelerate/</loc>
+    <loc>http://thedigitallink.net/events/2019-05-22-datastaxaccelerate/</loc>
     <lastmod>2019-05-22T15:38:02-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/posts/casquatch-open-source/</loc>
+    <loc>http://thedigitallink.net/posts/casquatch-open-source/</loc>
     <lastmod>2018-07-25T16:04:24-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://tdl-jturner.github.io/categories/</loc>
+    <loc>http://thedigitallink.net/categories/</loc>
     <priority>0</priority>
   </url>
   

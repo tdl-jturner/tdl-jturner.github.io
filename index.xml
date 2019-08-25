@@ -2,58 +2,58 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tdl-jturner</title>
-    <link>https://tdl-jturner.github.io/</link>
+    <link>http://thedigitallink.net/</link>
     <description>Recent content on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 25 Aug 2019 14:40:54 -0700</lastBuildDate>
     
-	<atom:link href="https://tdl-jturner.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://thedigitallink.net/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>https://tdl-jturner.github.io/about/</link>
+      <link>http://thedigitallink.net/about/</link>
       <pubDate>Sun, 25 Aug 2019 14:40:54 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/about/</guid>
+      <guid>http://thedigitallink.net/about/</guid>
       <description>Coming Soon</description>
     </item>
     
     <item>
       <title>Announcing Casquatch 2.0</title>
-      <link>https://tdl-jturner.github.io/posts/casquatch20/</link>
+      <link>http://thedigitallink.net/posts/casquatch20/</link>
       <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/posts/casquatch20/</guid>
+      <guid>http://thedigitallink.net/posts/casquatch20/</guid>
       <description>I&amp;rsquo;m very excited to announce the 2.0 release of Casquatch! With it comes a full rewrite to align with the 4.x DataStax OSS Driver, new manual (https://tmobile.github.io/casquatch), annotations, spring integration, failover policy, and even more streamlined code.
 Get yourself a cup of coffee and run through the tutorial (https://tmobile.github.io/casquatch/examples/springrest/). You&amp;rsquo;ll be up and running with a full Spring Rest DAO in just a few minutes.</description>
     </item>
     
     <item>
       <title>Seattle Cassandra Users: An OSS Java Abstraction Layer for Cassandra</title>
-      <link>https://tdl-jturner.github.io/events/2019-06-26-cassandraseattleusers-casquatch/</link>
+      <link>http://thedigitallink.net/events/2019-06-26-cassandraseattleusers-casquatch/</link>
       <pubDate>Wed, 26 Jun 2019 15:38:02 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/events/2019-06-26-cassandraseattleusers-casquatch/</guid>
+      <guid>http://thedigitallink.net/events/2019-06-26-cassandraseattleusers-casquatch/</guid>
       <description>Date : June 26, 2019 Location: Seattle, WA Event: Seattle Cassandra Users  Abstract Project Casquatch is a database abstraction layer with code generation designed to streamline Cassandra development. Out of the box it comes pre-tuned with high available policies including load balancing, geo-redundancy, connection pooling, etc., sitting on top of the DataStax driver using native APIs. All of this is abstracted behind the ever prevalent POJO. Instead of writing CQL, we utilize generic programming that allows you to simply pass a generated POJO to a save() method or populate with a getById().</description>
     </item>
     
     <item>
       <title>DataStax Accelerate: Casquatch</title>
-      <link>https://tdl-jturner.github.io/events/2019-05-22-datastaxaccelerate/</link>
+      <link>http://thedigitallink.net/events/2019-05-22-datastaxaccelerate/</link>
       <pubDate>Wed, 22 May 2019 15:38:02 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/events/2019-05-22-datastaxaccelerate/</guid>
+      <guid>http://thedigitallink.net/events/2019-05-22-datastaxaccelerate/</guid>
       <description>Date : May 22, 2019 Location: Washington, DC Event: DataStax Accelerate 2019 Video: YouTube Slides: SlideShare  Abstract Project Casquatch is a database abstraction layer with code generation designed to streamline Cassandra development. Out of the box it comes pre-tuned with high available policies including load balancing, geo-redundancy, connection pooling, etc., sitting on top of the DataStax driver using native APIs. All of this is abstracted behind the ever prevalent POJO.</description>
     </item>
     
     <item>
       <title>Introducing Project Casquatch</title>
-      <link>https://tdl-jturner.github.io/posts/casquatch-open-source/</link>
+      <link>http://thedigitallink.net/posts/casquatch-open-source/</link>
       <pubDate>Wed, 25 Jul 2018 16:04:24 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/posts/casquatch-open-source/</guid>
+      <guid>http://thedigitallink.net/posts/casquatch-open-source/</guid>
       <description></description>
     </item>
     

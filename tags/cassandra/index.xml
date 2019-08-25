@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cassandra on tdl-jturner</title>
-    <link>https://tdl-jturner.github.io/tags/cassandra/</link>
+    <link>http://thedigitallink.net/tags/cassandra/</link>
     <description>Recent content in cassandra on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 21 Aug 2019 15:54:38 -0700</lastBuildDate>
     
-	<atom:link href="https://tdl-jturner.github.io/tags/cassandra/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://thedigitallink.net/tags/cassandra/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Announcing Casquatch 2.0</title>
-      <link>https://tdl-jturner.github.io/posts/casquatch20/</link>
+      <link>http://thedigitallink.net/posts/casquatch20/</link>
       <pubDate>Wed, 21 Aug 2019 15:54:38 -0700</pubDate>
       
-      <guid>https://tdl-jturner.github.io/posts/casquatch20/</guid>
+      <guid>http://thedigitallink.net/posts/casquatch20/</guid>
       <description>I&amp;rsquo;m very excited to announce the 2.0 release of Casquatch! With it comes a full rewrite to align with the 4.x DataStax OSS Driver, new manual (https://tmobile.github.io/casquatch), annotations, spring integration, failover policy, and even more streamlined code.
 Get yourself a cup of coffee and run through the tutorial (https://tmobile.github.io/casquatch/examples/springrest/). You&amp;rsquo;ll be up and running with a full Spring Rest DAO in just a few minutes.</description>
     </item>
