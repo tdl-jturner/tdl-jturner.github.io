@@ -3,25 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://thedigitallink.net/posts/github-hugo-website/</loc>
+    <lastmod>2019-08-25T16:44:58-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/posts/</loc>
+    <lastmod>2019-08-25T16:44:58-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/</loc>
+    <lastmod>2019-08-25T16:44:58-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://thedigitallink.net/about/</loc>
     <lastmod>2019-08-25T14:40:54-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://thedigitallink.net/</loc>
-    <lastmod>2019-08-25T14:40:54-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://thedigitallink.net/posts/casquatch20/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://thedigitallink.net/posts/</loc>
-    <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
