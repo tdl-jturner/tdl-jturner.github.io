@@ -1,4 +1,4 @@
-baseurl = "https://tdl-jturner.github.io"
+baseurl = "http://thedigitallink.net"
 title = "tdl-jturner"
 theme = "hugo-coder"
 languagecode = "en"
