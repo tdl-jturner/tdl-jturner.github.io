@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Josh Turner">
+    
+    
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Designing Flutter"/>
+<meta name="twitter:description" content="I&rsquo;ve been thinking of a method to experiment with new technologies in a practical way beyond just Hello World. The goal would be to make a system that is complex enough to be valid but still simple enough to rapidly deploy in new languages and technologies. In addition, it would be broken in to microservices such that any individual method could be quickly swapped out and play well together. This way if I wanted to explore a new language or technology then I could simply rewrite a single API and see what happens."/>
+
+    <meta property="og:title" content="Designing Flutter" />
+<meta property="og:description" content="I&rsquo;ve been thinking of a method to experiment with new technologies in a practical way beyond just Hello World. The goal would be to make a system that is complex enough to be valid but still simple enough to rapidly deploy in new languages and technologies. In addition, it would be broken in to microservices such that any individual method could be quickly swapped out and play well together. This way if I wanted to explore a new language or technology then I could simply rewrite a single API and see what happens." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://thedigitallink.net/posts/flutter-design/" />
+<meta property="article:published_time" content="2019-08-26T14:19:54-07:00"/>
+<meta property="article:modified_time" content="2019-08-26T14:19:54-07:00"/>
+
+
+    
+      <base href="http://thedigitallink.net/posts/flutter-design/">
+    
+    <title>
+  Designing Flutter · tdl-jturner
+</title>
+
+    
+      <link rel="canonical" href="http://thedigitallink.net/posts/flutter-design/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://thedigitallink.net/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="http://thedigitallink.net/css/custom.css" />
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.55.6" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://thedigitallink.net/">
+      tdl-jturner
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/posts/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/events/">Events</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/about/">About</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Designing Flutter</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-08-26T14:19:54-07:00'>
+                August 26, 2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              2 minutes read
+            </span>
+          </div>
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>I&rsquo;ve been thinking of a method to experiment with new technologies in a practical way beyond just Hello World. The goal would be to make a system that is complex enough to be valid but still simple enough to rapidly deploy in new languages and technologies. In addition, it would be broken in to microservices such that any individual method could be quickly swapped out and play well together. This way if I wanted to explore a new language or technology then I could simply rewrite a single API and see what happens. This application will be called Flutter and will be a simple Micro Blogging Service (aka Twitter clone).</p>
+
+<h2 id="use-cases">Use Cases</h2>
+
+<p>The basic use cases of Flutter.</p>
+
+<ol>
+<li>Post a message to the system</li>
+<li>Read all messages from a user</li>
+<li>Follow another user</li>
+<li>Read all messages from followed users</li>
+<li>Receive notifications of messages posted by followed users</li>
+<li>Search messages</li>
+</ol>
+
+<h2 id="architecture">Architecture</h2>
+
+
+<script src="http://thedigitallink.net/js/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({startOnLoad: true, theme: 'neutral'});
+</script>
+<div class="mermaid" align="center">
+graph TD
+    UI-->ServiceRegistry
+    ServiceRegistry-->MessageService
+    ServiceRegistry-->SearchService
+    ServiceRegistry-->TimelineService
+    ServiceRegistry-->FollowService
+    ServiceRegistry-->UserService
+    TimelineService-->MessageDAO
+    SearchService-->MessageDAO    
+    MessageService-->MessageDAO
+    MessageService-->NotificationService
+    UserService-->NotificationService
+    UserService-->UserDAO
+    FollowService-->FollowDAO
+    MessageDAO-->DataStore
+    UserDAO-->DataStore
+    FollowDAO-->DataStore
+</div>
+
+
+<p>The UI will go through a Service Registry which knows about each of the APIs from the given microservices. The Service layer will sit on top of the DAO layer which in turn interacts with the DataStore. Services should individually be able to be plugged in and out as necessary. The DAO will be more closely tied to the DataStore selection. Each layer will pass data as JSON representations for simplicity and consistency.</p>
+
+<h2 id="entities">Entities</h2>
+
+<p>The following will be the basic entities used throughout the system.</p>
+
+<h3 id="user">User</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>uuid</td>
+</tr>
+
+<tr>
+<td>username</td>
+<td>text</td>
+</tr>
+
+<tr>
+<td>email</td>
+<td>text</td>
+</tr>
+
+<tr>
+<td>enable_notifications</td>
+<td>boolean</td>
+</tr>
+
+<tr>
+<td>created_dttm</td>
+<td>timestamp</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="message">Message</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>uuid</td>
+</tr>
+
+<tr>
+<td>author</td>
+<td>uuid</td>
+</tr>
+
+<tr>
+<td>text</td>
+<td>text</td>
+</tr>
+
+<tr>
+<td>created_dttm</td>
+<td>timestamp</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="follow">Follow</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>author</td>
+<td>uuid</td>
+</tr>
+
+<tr>
+<td>follower</td>
+<td>uuid</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="what-s-next">What&rsquo;s Next</h2>
+
+<p>The initial POC for this will be done with Java and Cassandra as these are technologies I know well and can run with. Once the initial POC is up and going, I&rsquo;ll start looking at different products to piece in here and experiment. My next post will focus on building out these services.</p>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>Comments and Opinions are my own.</p>
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
