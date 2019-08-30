@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Josh Turner">
+    
+    
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Self-Signed SSL"/>
+<meta name="twitter:description" content="I&rsquo;ve been working with two-way SSL in Kafka recently and could not find a concise place with the steps of creating your own CA and issuing certificates for the nodes. The same process would apply to SSL for many distributed systems including Cassandra and others. Here&rsquo;s a post with a little background and some scripts to assist.
+What is SSL? SSL is great as a minimal level of security in any web-based product and something you should always use when available."/>
+
+    <meta property="og:title" content="Self-Signed SSL" />
+<meta property="og:description" content="I&rsquo;ve been working with two-way SSL in Kafka recently and could not find a concise place with the steps of creating your own CA and issuing certificates for the nodes. The same process would apply to SSL for many distributed systems including Cassandra and others. Here&rsquo;s a post with a little background and some scripts to assist.
+What is SSL? SSL is great as a minimal level of security in any web-based product and something you should always use when available." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://thedigitallink.net/posts/self-signing/" />
+<meta property="article:published_time" content="2019-08-30T07:49:44-07:00"/>
+<meta property="article:modified_time" content="2019-08-30T07:49:44-07:00"/>
+
+
+    
+      <base href="http://thedigitallink.net/posts/self-signing/">
+    
+    <title>
+  Self-Signed SSL · tdl-jturner
+</title>
+
+    
+      <link rel="canonical" href="http://thedigitallink.net/posts/self-signing/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://thedigitallink.net/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="http://thedigitallink.net/css/custom.css" />
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.55.6" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://thedigitallink.net/">
+      tdl-jturner
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/posts/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/events/">Events</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/about/">About</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Self-Signed SSL</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-08-30T07:49:44-07:00'>
+                August 30, 2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              5 minutes read
+            </span>
+          </div>
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>I&rsquo;ve been working with two-way SSL in Kafka recently and could not find a concise place with the steps of creating your own CA and issuing certificates for the nodes. The same process would apply to SSL for many distributed systems including Cassandra and others. Here&rsquo;s a post with a little background and some scripts to assist.</p>
+
+<h2 id="what-is-ssl">What is SSL?</h2>
+
+<p>SSL is great as a minimal level of security in any web-based product and something you should always use when available. Personally, I like to use <a href="https://www.eff.org/https-everywhere">HTTPS:// Everywhere</a> to enforce it is on by default.</p>
+
+<p>SSL or Secure Socket Layer allows for secured communication between two devices, be that your browser and a server or even two servers. In order to do this the hosting server provides a public SSL Certificate which the client uses to encrypt the message before sending it. There is more math and complexity involving cipher suite negotiation and the actual protocol that you can get in to. If you want more on that I suggest checking out <a href="https://www.geeksforgeeks.org/secure-socket-layer-ssl/">Geek For Geeks - Secure Socket Layer(SSL)</a>.</p>
+
+<h2 id="what-is-self-signed-ssl">What is Self Signed SSL?</h2>
+
+<p>Once the client server receives the certificate it must then decide if it can trust it or not. Anyone can easily generate certificate with a simple command like</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl req -new -newkey rsa:2048 -nodes -x509 -keyout server.key -out server.crt</code></pre></div>
+<p>You can even view the results with:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl x509 -noout -text -in server.crt</code></pre></div>
+<p>This certificate is known as a &lsquo;self signed&rsquo; certificate. This means that there is no authority that has issued the cert and all the client has to go by is this single certificate.</p>
+
+<h2 id="certificate-signing">Certificate Signing</h2>
+
+<p>In order to get a signed certificate, you would generally request a certificate from a trusted Certificate Authority (CA). In turn, that CA might have a certificate signed by another CA. While this would be fun to picture as turtles all the way down, the chain does eventually end. Certificates (at any level) can be trusted manually and placed in a trust store which is nothing more than a repository of trusted certificates. This can be a custom truststore containing certificates that you have chosen to trust or it will be the default truststore containing well known Certificate Authorities known as Root CAs.</p>
+
+<h2 id="hostname-verification">Hostname Verification</h2>
+
+<p>The final point before getting into the script is hostname verification. Commonly with self-signed certs, this gets turned off (which you shouldn&rsquo;t do) but using this process you&rsquo;ll be able to define it properly and not need to disable this. On a ceritifcate there is a &lsquo;Subject&rsquo; which looks something like &ldquo;CN=Hostname,OU=Group,O=Company,C=Country&rdquo;. In this case the CN is the hostname of the server and the client can then compare the hostname to the certificate to verify they match. However, when building internal apps, running a server locally, being behind a vip, or many other reasons they may not match. Instead of disabling this functionality and losing this ecurity, you can simply add a Subject Alternative Name to supply multiple names or even ip addresses.</p>
+
+<h2 id="building-your-own-ca">Building Your Own CA</h2>
+
+<p>Now with distributed systems, we often want encryption between the nodes but these servers don&rsquo;t really need to have certificates owned by externally trusted CAs. It may even be considered safer that they not rely on external CAs to give you full control and thus immediately reject a certificate not issued by you. Simimlarly, an Enterprise may create their own CA (externally signed or not) and preinstall this to your corporate machine&rsquo;s trust store.</p>
+
+<p>For the sake of this project. A simple CA can be made as follows:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl req -new -x509 -nodes -newkey rsa:2048 -subj <span style="font-style:italic">&#34;/CN=</span><span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#34;</span> -keyout <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span>.key -out <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span>.crt</code></pre></div>
+<p>There are other solutions for more complex projects but this allows a simple CA creation. From this point on, be very careful with your ca.key file. It is the private key which will be trusted by any client created in this process.</p>
+
+<h2 id="generating-client-keystores">Generating Client Keystores</h2>
+
+<p>This is the step that you will likely do many times. Once you have your new Certificate Authority (CA) you&rsquo;ll need to create some clients. The result will be a java keystore that can be used in any java client. I&rsquo;ll provide a script at the end but first I&rsquo;ll go over the steps.
+1. Create Private Key and Keystore
+2. Generate CSR (Certificate Signing Request)
+3. Create a Signed certificate from your CA
+4. Import CA to keystore
+4. Import Certificate to keystore
+5. Create a new truststore containing only the CA</p>
+
+<p>Here is a genclient script to create new clients from your CA. Called with ./genclient hostname [alt name 1] [alt name n]. I.E. ./genclient server01 localhost server01.my.domain</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="font-style:italic">#Configure Environement. Please change the passwords</span>
+export CA_NAME=<span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span>
+export CA_PASSWORD=changeme
+export CLIENT_PASSWORD=changeme
+
+<span style="font-style:italic">#Pull out Client argument. Exit if files exist</span>
+CLIENT=$1
+shift
+<span style="font-weight:bold">if</span> [[ -f <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.keystore ]]; <span style="font-weight:bold">then</span>
+  echo <span style="font-style:italic">&#34;</span><span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic"> already exists. Please remove if you wish to create a new certificate.&#34;</span>
+  exit 1;
+<span style="font-weight:bold">fi</span>;
+
+<span style="font-style:italic">#Confirm CA exists</span>
+<span style="font-weight:bold">if</span> [[ ! -f <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span>.key ]]; <span style="font-weight:bold">then</span>
+  echo <span style="font-style:italic">&#34;</span><span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic"> does not exist. &#34;</span>
+  exit 1;
+<span style="font-weight:bold">fi</span>;
+
+<span style="font-style:italic">#Configure the DName. This can optionally have the full Subject including OU,O,C</span>
+export DNAME=<span style="font-style:italic">&#34;CN=</span><span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#34;</span>
+
+<span style="font-style:italic">#Create SAN List from parameters</span>
+export SAN_LIST=<span style="font-style:italic">&#34;DNS:</span><span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#34;</span>
+<span style="font-weight:bold">for</span> s in <span style="font-style:italic">&#34;</span>$@<span style="font-style:italic">&#34;</span>; <span style="font-weight:bold">do</span>
+  SAN_LIST=<span style="font-style:italic">&#34;</span>$SAN_LIST<span style="font-style:italic">,DNS:</span>$s<span style="font-style:italic">&#34;</span>
+<span style="font-weight:bold">done</span>;
+
+<span style="font-style:italic">#Gen keystore with private key</span>
+keytool -genkeypair -keyalg RSA -alias <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span> -keystore <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.keystore -storepass $CLIENT_PASSWORD -keypass $CLIENT_PASSWORD -validity 365 -keysize 2048 -dname <span style="font-style:italic">&#34;</span>$DNAME<span style="font-style:italic">&#34;</span> -storetype PKCS12 -ext <span style="font-style:italic">&#34;SAN=</span>$SAN_LIST<span style="font-style:italic">&#34;</span>
+
+<span style="font-style:italic">#Gen csr</span>
+keytool -keystore <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.keystore -alias <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span> -certreq -file <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.csr -keypass $CLIENT_PASSWORD -storepass $CLIENT_PASSWORD -dname <span style="font-style:italic">&#34;</span>$DNAME<span style="font-style:italic">&#34;</span> -ext <span style="font-style:italic">&#34;SAN=</span>$SAN_LIST<span style="font-style:italic">&#34;</span>
+
+<span style="font-style:italic">#Sign csr with CA</span>
+openssl x509 -req -CA <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span>.crt -CAkey <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span>.key -in <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.csr -out <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.crt -days 365 -CAcreateserial -passin pass:$CLIENT_PASSWORD -extfile &lt;(printf <span style="font-style:italic">&#34;subjectAltName=</span>$SAN_LIST<span style="font-style:italic">&#34;</span>)
+
+<span style="font-style:italic">#Import CA to keystore</span>
+keytool -keystore <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.keystore -alias <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span> -importcert -file <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span>.crt -noprompt  -keypass $CLIENT_PASSWORD -storepass $CLIENT_PASSWORD
+
+<span style="font-style:italic">#Import cert to keystore</span>
+keytool -keystore <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.keystore -alias <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span> -importcert -noprompt -file <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.crt -keypass $CLIENT_PASSWORD -storepass $CLIENT_PASSWORD
+
+<span style="font-style:italic">#Create truststore</span>
+keytool -import -v -trustcacerts -alias <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span> -file <span style="font-weight:bold;font-style:italic">${</span>CA_NAME<span style="font-weight:bold;font-style:italic">}</span>.crt -keystore <span style="font-weight:bold;font-style:italic">${</span>CLIENT<span style="font-weight:bold;font-style:italic">}</span>.truststore -keypass $CLIENT_PASSWORD -storepass $CLIENT_PASSWORD -noprompt</code></pre></div>
+<h2 id="conclusion">Conclusion</h2>
+
+<p>All of these settings can be tweaked and tuned to meet your security requirements. The code in this is a sample to get started and to cover the processes involved. If this is a mission critical system, please consult your internal security team for any applicable policies.</p>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>Comments and Opinions Are My Own.<br/>All Code is for Demonstration Purposes Only</p>
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

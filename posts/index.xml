@@ -6,10 +6,20 @@
     <description>Recent content in Posts on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 26 Aug 2019 14:19:54 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 30 Aug 2019 07:49:44 -0700</lastBuildDate>
     
 	<atom:link href="http://thedigitallink.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Self-Signed SSL</title>
+      <link>http://thedigitallink.net/posts/self-signing/</link>
+      <pubDate>Fri, 30 Aug 2019 07:49:44 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/posts/self-signing/</guid>
+      <description>I&amp;rsquo;ve been working with two-way SSL in Kafka recently and could not find a concise place with the steps of creating your own CA and issuing certificates for the nodes. The same process would apply to SSL for many distributed systems including Cassandra and others. Here&amp;rsquo;s a post with a little background and some scripts to assist.
+What is SSL? SSL is great as a minimal level of security in any web-based product and something you should always use when available.</description>
+    </item>
     
     <item>
       <title>Designing Flutter</title>
