@@ -21,7 +21,7 @@ pygmentscodefencesguesssyntax = true
     favicon_32 = "/img/favicon-32x32.png"
     favicon_16 = "/img/favicon-16x16.png"
 
-    footercontent = "Comments and Opinions are my own."
+    footercontent = "Comments and Opinions Are My Own.<br/>All Code is for Demonstration Purposes Only"
 
     hidecredits = false
     hidecopyright = false
