@@ -6,10 +6,19 @@
     <description>Recent content in Events on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Jun 2019 15:38:02 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 09 Sep 2019 12:45:45 -0700</lastBuildDate>
     
 	<atom:link href="http://thedigitallink.net/events/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Seattle Cassandra Users: Apache Cassandra At T-Mobile</title>
+      <link>http://thedigitallink.net/events/2019-10-09-cassandraseattleusers-t-mobile/</link>
+      <pubDate>Mon, 09 Sep 2019 12:45:45 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/events/2019-10-09-cassandraseattleusers-t-mobile/</guid>
+      <description>Date : October 9, 2019 Location: Seattle, WA Event: Seattle Cassandra Users  Abstract T-Mobile is using Cassandra to back many of our national platforms including device activations, eSim management, bill payments, and T-Mobile Digits. In this talk we will discuss our journey as we migrated away from legacy relational databases and the challenges of having to overcome skill gaps, develop automation, and create tooling to manage our new distributed data system.</description>
+    </item>
     
     <item>
       <title>Seattle Cassandra Users: An OSS Java Abstraction Layer for Cassandra</title>
