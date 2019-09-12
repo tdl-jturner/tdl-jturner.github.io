@@ -6,10 +6,19 @@
     <description>Recent content in Posts on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 30 Aug 2019 07:49:44 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 11 Sep 2019 10:03:58 -0700</lastBuildDate>
     
 	<atom:link href="http://thedigitallink.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flutter - Writing The Code</title>
+      <link>http://thedigitallink.net/posts/flutter-writing-the-code/</link>
+      <pubDate>Wed, 11 Sep 2019 10:03:58 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/posts/flutter-writing-the-code/</guid>
+      <description>This is a continuation of the initial Flutter Design. In this post, I&amp;rsquo;ll talk about writing the actual code and how it developed from an idea to a running project. When I started laying out Flutter, I wanted to make it so that each microservice was simple and self contained yet also consistent designed for modularity. I also wanted to start with a framework that I knew well and was very accessible for me.</description>
+    </item>
     
     <item>
       <title>Self-Signed SSL</title>

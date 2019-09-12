@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Josh Turner">
+    
+    
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Flutter - Writing The Code"/>
+<meta name="twitter:description" content="This is a continuation of the initial Flutter Design. In this post, I&rsquo;ll talk about writing the actual code and how it developed from an idea to a running project. When I started laying out Flutter, I wanted to make it so that each microservice was simple and self contained yet also consistent designed for modularity. I also wanted to start with a framework that I knew well and was very accessible for me."/>
+
+    <meta property="og:title" content="Flutter - Writing The Code" />
+<meta property="og:description" content="This is a continuation of the initial Flutter Design. In this post, I&rsquo;ll talk about writing the actual code and how it developed from an idea to a running project. When I started laying out Flutter, I wanted to make it so that each microservice was simple and self contained yet also consistent designed for modularity. I also wanted to start with a framework that I knew well and was very accessible for me." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://thedigitallink.net/posts/flutter-writing-the-code/" />
+<meta property="article:published_time" content="2019-09-11T10:03:58-07:00"/>
+<meta property="article:modified_time" content="2019-09-11T10:03:58-07:00"/>
+
+
+    
+      <base href="http://thedigitallink.net/posts/flutter-writing-the-code/">
+    
+    <title>
+  Flutter - Writing The Code · tdl-jturner
+</title>
+
+    
+      <link rel="canonical" href="http://thedigitallink.net/posts/flutter-writing-the-code/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://thedigitallink.net/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="http://thedigitallink.net/css/custom.css" />
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.55.6" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://thedigitallink.net/">
+      tdl-jturner
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/posts/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/events/">Events</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/about/">About</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Flutter - Writing The Code</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-09-11T10:03:58-07:00'>
+                September 11, 2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              7 minutes read
+            </span>
+          </div>
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>This is a continuation of the initial <a href="http://thedigitallink.net/posts/flutter-design/">Flutter Design</a>. In this post, I&rsquo;ll talk about writing the actual code and how it developed from an idea to a running project. When I started laying out Flutter, I wanted to make it so that each microservice was simple and self contained yet also consistent designed for modularity. I also wanted to start with a framework that I knew well and was very accessible for me. Thus I selected <a href="https://www.java.com">Java</a> with <a href="https://spring.io">Spring</a> and <a href="https://github.com/apache/cassandra">Cassandra</a>
+ with <a href="https://github.com/tmobile/casquatch">Casquatch</a>
+.</p>
+
+<h2 id="service-registry">Service Registry</h2>
+
+<p>To start off this project, I needed to select a service registry. For the sake of this project, a service registry is simply a central place that all the microservices register with on startup and provides an API to round robin over them. After a bit of exploration, I selected <a href="https://github.com/Netflix/eureka">Netflix Eureka</a>
+. Eureka offers very easy integration though <a href="https://github.com/spring-cloud/spring-cloud-netflix">Spring Cloud Netflix</a>
+.</p>
+
+<h3 id="eureka-server">Eureka Server</h3>
+
+<p>First step to getting going with Eureka is to spin up a server itself. This was done with a trivial spring project by adding the dependency in the pom
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="font-weight:bold">&lt;dependency&gt;</span>
+	<span style="font-weight:bold">&lt;groupId&gt;</span>org.springframework.cloud<span style="font-weight:bold">&lt;/groupId&gt;</span>
+	<span style="font-weight:bold">&lt;artifactId&gt;</span>spring-cloud-starter-netflix-eureka-server<span style="font-weight:bold">&lt;/artifactId&gt;</span>
+<span style="font-weight:bold">&lt;/dependency&gt;</span></code></pre></div>
+Then simply adding the annotation to the base Application class
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@EnableEurekaServer</code></pre></div>
+Finally adding some basic properties
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">server.port=<span style="font-style:italic">8761</span>
+eureka.client.register-with-eureka=<span style="font-style:italic">false</span>
+eureka.client.fetch-registry=<span style="font-style:italic">false</span></code></pre></div>
+Once this was started up there was a simple console running at <a href="http://localhost:8761">http://localhost:8761</a>. See the full code at <a href="https://github.com/tdl-jturner/flutter/blob/master/java/service-registry">Service-Registry</a>
+.</p>
+
+<h3 id="eureka-client">Eureka Client</h3>
+
+<p>Adding a Eureka Client wasn&rsquo;t much more complicated when using Spring as the dependency add does the heavy lifting for you.</p>
+
+<p>First, I added the dependency
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="font-weight:bold">&lt;dependency&gt;</span>
+	<span style="font-weight:bold">&lt;groupId&gt;</span>org.springframework.cloud<span style="font-weight:bold">&lt;/groupId&gt;</span>
+	<span style="font-weight:bold">&lt;artifactId&gt;</span>spring-cloud-starter-netflix-eureka-server<span style="font-weight:bold">&lt;/artifactId&gt;</span>
+<span style="font-weight:bold">&lt;/dependency&gt;</span></code></pre></div></p>
+
+<p>Added a few properties to bootstrap.properties
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">spring.application.name=<span style="font-style:italic">Client-Name</span>
+server.port=<span style="font-style:italic">0</span>
+server.servlet.context-path=<span style="font-style:italic">/${spring.application.name}</span></code></pre></div></p>
+
+<p>Then added a few more to the application.properties. I did end up moving these to common module but that is optional:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">eureka.client.service-url.defaultZone=<span style="font-style:italic">http://localhost:8761/eureka</span>
+eureka.instance.preferIpAddress=<span style="font-style:italic">true</span></code></pre></div>
+With this, the clients will automatically register with Eureka on startup. Occasionally this can take some time, so patience and checking the Eureka Console is going to be helpful.
+Example of this can be seen in <a href="https://github.com/tdl-jturner/flutter/blob/master/java/follow-dao">Follow-Dao</a>
+.</p>
+
+<h3 id="client-usage">Client Usage</h3>
+
+<p>Once the client is wired up, querying Eureka is done through the EurekaClient object.
+First, we auto wire that up with:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Autowired
+<span style="font-weight:bold">private</span> EurekaClient eurekaClient;</code></pre></div>
+Find the next client with
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">eurekaClient.getNextServerFromEureka(<span style="font-style:italic">&#34;ServiceName&#34;</span>,<span style="font-weight:bold">false</span>);</code></pre></div>
+or if you want https then use
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">eurekaClient.getNextServerFromEureka(<span style="font-style:italic">&#34;ServiceName&#34;</span>,<span style="font-weight:bold">true</span>);</code></pre></div>
+Now you have a string like <a href="https://127.0.0.1:51235">https://127.0.0.1:51235</a> referencing the host and ip of the registered service.
+Example of this can be seen in <a href="https://github.com/tdl-jturner/flutter/blob/master/java/follow-service/src/main/java/net/thedigitallink/flutter/service/follow/FollowServiceController.java#L35">FollowServiceController</a>
+.</p>
+
+<h2 id="dao">DAO</h2>
+
+<p>The DAOs all follow the same general model and thus I&rsquo;ll focus on just the Follow DAO.</p>
+
+<p>First there is a model which mimics the table in Cassandra as a simple mapping of two user names in this example. (See <a href="https://tmobile.github.io/casquatch/overview/concepts/#casquatch-entity">Casquatch Manual</a> for more information on this.)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@CasquatchEntity
+@Getter @Setter @NoArgsConstructor
+<span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Follow</span> <span style="font-weight:bold">extends</span> AbstractCasquatchEntity {
+    @PartitionKey
+    <span style="font-weight:bold">private</span> String follower;
+    <span style="font-weight:bold">private</span> String author;
+}</code></pre></div></p>
+
+<p>The REST services exist in a class annotated with @RestController from Spring and contain simple API Wrappers from <a href="https://github.com/tmobile/casquatch">Casquatch</a>
+. I started using the <a href="https://tmobile.github.io/casquatch/features/restapi/">auto generated rest api</a> then stripped out what I did not need.
+An API would look something like this
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@RequestMapping(value = <span style="font-style:italic">&#34;/save&#34;</span>, method= RequestMethod.POST)
+<span style="font-weight:bold">public</span> Response&lt;Void&gt; save(@RequestBody Request&lt;Follow&gt; request) {
+    log.trace(<span style="font-style:italic">&#34;POST | /save | {}&#34;</span>,request.toString());
+    <span style="font-weight:bold">return</span> <span style="font-weight:bold">new</span> Response&lt;&gt;(casquatchDao.save(Follow.class,request.getPayload(),request.getQueryOptions()), Response.Status.SUCCESS);
+}</code></pre></div>
+To use this API, you would submit a POST to /save with JSON request similar to
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="font-weight:bold">&#34;payload&#34;</span>: {<span style="font-weight:bold">&#34;follower&#34;</span>:<span style="font-style:italic">&#34;MyUsername&#34;</span>, <span style="font-weight:bold">&#34;author&#34;</span>:<span style="font-style:italic">&#34;OtherUsername&#34;</span>}}</code></pre></div>
+Example of this can be seen in <a href="https://github.com/tdl-jturner/flutter/blob/master/java/follow-dao/src/main/java/net/thedigitallink/flutter/dao/follow/FollowDaoService.java#L19">FollowDaoService</a>
+.</p>
+
+<h2 id="service">Service</h2>
+
+<p>While the DAOs were simple wrappers due to <a href="https://github.com/tmobile/casquatch">Casquatch</a>
+ sitting beneath them. The Service layers were designed to do a little more logic as they needed to interact with each other.</p>
+
+<p>As they are going to be passing around JSON objects, they needed a set of models to parse the JSON Requests / Responses. I started by having these within the microservices but this ended up being too much duplicated code and thus I rolled them in to a <a href="https://github.com/tdl-jturner/flutter/tree/master/java/common/src/main/java/net/thedigitallink/flutter/service/models">common module</a>
+. I did use a few Abstract base classes to deduplicate the code but the models are little more than a class to parse the JSON.</p>
+
+<p>The URIs for each API are derived from a simple utility function as follows:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">private</span> URI getUri(String service,String api) {
+    InstanceInfo instanceInfo = eurekaClient.getNextServerFromEureka(service.toUpperCase(),<span style="font-weight:bold">false</span>);
+    <span style="font-weight:bold">return</span> URI.create(String.format(<span style="font-style:italic">&#34;http://%s:%s/%s%s&#34;</span>,instanceInfo.getIPAddr(),instanceInfo.getPort(),service.toLowerCase(),api));
+}</code></pre></div>
+This function queries Eureka to get the instance information and combines that with the service name to build a URI like <a href="http://localhost:51235/user-dao/get">http://localhost:51235/user-dao/get</a> for the api call.</p>
+
+<p>A service API then looks something like the following:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@RequestMapping(value = <span style="font-style:italic">&#34;/get/{id}&#34;</span>, method=RequestMethod.GET)
+<span style="font-weight:bold">public</span> ResponseEntity&lt;Message&gt; getMessage(@PathVariable String id) {
+   log.trace(<span style="font-style:italic">&#34;GET | /get/{}&#34;</span>,id);
+   <span style="font-weight:bold">try</span> {
+       ResponseEntity&lt;MessageResponse&gt; entity = restTemplate.postForEntity(getUri(<span style="font-style:italic">&#34;message-dao&#34;</span>,<span style="font-style:italic">&#34;/get&#34;</span>),<span style="font-weight:bold">new</span> HttpEntity&lt;&gt;(Message.builder().id(UUID.fromString(id)).build().toRequestString(),httpHeaders), MessageResponse.class);
+       <span style="font-weight:bold">return</span> <span style="font-weight:bold">new</span> ResponseEntity&lt;&gt;(entity.getBody().getPayload().get(0),entity.getStatusCode());
+   }
+   <span style="font-weight:bold">catch</span> (Exception e) {
+       log.trace(<span style="font-style:italic">&#34;ERROR&#34;</span>,e);
+       <span style="font-weight:bold">return</span> <span style="font-weight:bold">new</span> ResponseEntity&lt;&gt;(HttpStatus.INTERNAL_SERVER_ERROR);
+   }
+}</code></pre></div>
+Here the code is accepting a simple GET API for something like  message-service/get/12345 to pull a message. It then builds a new Message Object using the provided id number, wraps it in an HttpEntity, and posts this created object to the DAO api which would be message-dao/get. The result is finally processed and an appropriate status code is returned.</p>
+
+<h2 id="testing">Testing</h2>
+
+<p>For testing, I wanted to make it usable on additional microservices regardless of them being part of the same project so I made it a completely independent module that was a EurekaClient of its own. This required two main utility functions.The first is is a random object generator  and the second the same getUri from above that queries Eureka to get the server for the URI.</p>
+
+<p>The random object generator is built using <a href="https://github.com/mtedone/podam">podam</a>
+ to populate POJOs with random data and then saves it through the relevant DAO microservice. This looks something like:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">private</span> User random() {
+    User user = podamFactory.manufacturePojoWithFullData(User.class);
+    restTemplate.postForEntity(getUri(<span style="font-style:italic">&#34;user-dao&#34;</span>,<span style="font-style:italic">&#34;/save&#34;</span>),<span style="font-weight:bold">new</span> HttpEntity&lt;&gt;(user.toRequestString(),httpHeaders),UserResponse.class);
+    <span style="font-weight:bold">return</span> user;
+}</code></pre></div></p>
+
+<p>Now that the POJO is created and saved, a basic service test would look something like:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Test
+<span style="font-weight:bold">public</span> <span style="">void</span> testGet() {
+    User user = random();
+    ResponseEntity&lt;UserResponse&gt; entity = restTemplate.postForEntity(getUri(<span style="font-style:italic">&#34;user-dao&#34;</span>,<span style="font-style:italic">&#34;/get&#34;</span>),<span style="font-weight:bold">new</span> HttpEntity&lt;&gt;(user.toRequestString(),httpHeaders), UserResponse.class);
+    <span style="font-weight:bold">assert</span>(entity.getStatusCode().is2xxSuccessful());
+    assertEquals(user.getUsername(), entity.getBody().getPayload().get(0).getUsername());
+}</code></pre></div>
+In this test, the object is posted against the user-dao service and the returning payload is compared.
+Full examples can be seen in  <a href="https://github.com/tdl-jturner/flutter/blob/master/java/integration-tests/src/test/java/net/thedigitallink/flutter/tests">Integration-Tests</a>
+.</p>
+
+<h2 id="user-interface">User Interface</h2>
+
+<p>The User Interface is extremely bare bones but serves as a starting point for testing. My goal would be to write this in a more advanced format as an exploration of a UI technology. For now it is simply SpringMVC using Freemarker templates.</p>
+
+<h3 id="login">Login</h3>
+
+<p>Login was done insecurely and at the most simple way for the sake of demonstration. In order to login as a user there is a /login/{username} api which is linked to from /UserList. /UserList provides a list of all known users including message and follow counts for you to select from. The logged in username is stored in plain text in a cookie.</p>
+
+<h3 id="timeline">Timeline</h3>
+
+<p>The timeline is the main part of the UI as it is the primary interface for the application. A user may access their own timeline from /timeline or another user&rsquo;s timeline with /timeline/{username}. Either method calls /timeline-service/get/{username} to retrieve the relevant messages. This API in turn calls /timeline-servie/refresh/{username} which compiles a list of all messages for the user and all followed users which have not yet been stored in the timeline for that user. It then inserts them and returns the results.</p>
+
+<p>The difference between the two timeline interfaces is that if accessing one&rsquo;s own timeline they see an option to post a message while accessing another user&rsquo;s timeline provides a follow or unfollow link as appropriate.</p>
+
+<h2 id="updated-architecture">Updated Architecture</h2>
+
+<p>A few adjustments to the architecture were needed as the project was fleshed out. In addition the SearchService and NotificationService have not yet been developed.
+
+<script src="http://thedigitallink.net/js/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({startOnLoad: true, theme: 'neutral'});
+</script>
+<div class="mermaid" align="center">
+graph TD
+    UI-->ServiceRegistry
+    ServiceRegistry-->MessageService
+    ServiceRegistry-->TimelineService
+    ServiceRegistry-->FollowService
+    ServiceRegistry-->UserService
+    TimelineService-->MessageService
+    TimelineService-->FollowService
+    TimelineService-->TimelineDAO
+    MessageService-->MessageDAO
+    UserService-->UserDAO
+    FollowService-->FollowDAO
+    TimelineDAO-->DataStore
+    MessageDAO-->DataStore
+    UserDAO-->DataStore
+    FollowDAO-->DataStore
+</div>
+</p>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>In the next post of this series, I plan to break down how the load generation tool functions to similar customer traffic. I&rsquo;ll come back to the SearchService and NotificationService as these are going to require additional technologies. Stay tuned!</p>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>Comments and Opinions Are My Own.<br/>All Code is for Demonstration Purposes Only</p>
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
