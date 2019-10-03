@@ -1,6 +1,6 @@
 +++
 draft = false
-date = 2019-09-09T12:45:45-07:00
+date = 2019-10-09T6:00:00-07:00
 title = "Seattle Cassandra Users: Apache Cassandra At T-Mobile"
 slug = ""
 +++
