@@ -3,20 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://thedigitallink.net/posts/flutter-writing-the-code/</loc>
-    <lastmod>2019-09-11T10:03:58-07:00</lastmod>
+    <loc>http://thedigitallink.net/post/heyalexa/</loc>
+    <lastmod>2019-10-03T07:36:56-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/posts/alexaskill/</loc>
+    <lastmod>2019-10-03T07:36:56-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/post/</loc>
+    <lastmod>2019-10-03T07:36:56-07:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>http://thedigitallink.net/posts/</loc>
-    <lastmod>2019-09-11T10:03:58-07:00</lastmod>
+    <lastmod>2019-10-03T07:36:56-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://thedigitallink.net/</loc>
-    <lastmod>2019-09-11T10:03:58-07:00</lastmod>
+    <lastmod>2019-10-03T07:36:56-07:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/posts/flutteroci/</loc>
+    <lastmod>2019-09-27T07:29:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/posts/flutter-writing-the-code/</loc>
+    <lastmod>2019-09-11T10:03:58-07:00</lastmod>
   </url>
   
   <url>

@@ -6,10 +6,32 @@
     <description>Recent content in Posts on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Sep 2019 10:03:58 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 03 Oct 2019 07:36:56 -0700</lastBuildDate>
     
 	<atom:link href="http://thedigitallink.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Alexa : Build me a skill</title>
+      <link>http://thedigitallink.net/posts/alexaskill/</link>
+      <pubDate>Thu, 03 Oct 2019 07:36:56 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/posts/alexaskill/</guid>
+      <description>The other day I was asked to look in to how we could build an Alexa skill that interacted with an onsite service. This was a lot more fun than expected and I wanted to share it as a blog post.
+Creating A Skill First things first, head over to the Alexa developer page and sign up for an account.
+Once in the console, we will create a new skill.</description>
+    </item>
+    
+    <item>
+      <title>Flutter On OCI</title>
+      <link>http://thedigitallink.net/posts/flutteroci/</link>
+      <pubDate>Fri, 27 Sep 2019 07:29:55 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/posts/flutteroci/</guid>
+      <description>Today&amp;rsquo;s post is going to get Flutter up and running in Oracle Cloud Infrastructure (OCI). In order to get started, it is assumed that you&amp;rsquo;ve created an account and signed up for the 30 day free trial at https://www.oracle.com/cloud/free/.
+Compartment OCI containers compartments which allow you to group and isolate components for organization and / or security.
+Create the compartment as follows: 1. Menu -&amp;gt; Identity -&amp;gt; Compartment 2. Create new compartment 3.</description>
+    </item>
     
     <item>
       <title>Flutter - Writing The Code</title>

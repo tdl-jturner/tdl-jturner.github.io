@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Josh Turner">
+    
+    
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Alexa : Build me a skill"/>
+<meta name="twitter:description" content="The other day I was asked to look in to how we could build an Alexa skill that interacted with an onsite service. This was a lot more fun than expected and I wanted to share it as a blog post.
+Creating A Skill First things first, head over to the Alexa developer page and sign up for an account.
+Once in the console, we will create a new skill."/>
+
+    <meta property="og:title" content="Alexa : Build me a skill" />
+<meta property="og:description" content="The other day I was asked to look in to how we could build an Alexa skill that interacted with an onsite service. This was a lot more fun than expected and I wanted to share it as a blog post.
+Creating A Skill First things first, head over to the Alexa developer page and sign up for an account.
+Once in the console, we will create a new skill." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://thedigitallink.net/posts/alexaskill/" />
+<meta property="article:published_time" content="2019-10-03T07:36:56-07:00"/>
+<meta property="article:modified_time" content="2019-10-03T07:36:56-07:00"/>
+
+
+    
+      <base href="http://thedigitallink.net/posts/alexaskill/">
+    
+    <title>
+  Alexa : Build me a skill · tdl-jturner
+</title>
+
+    
+      <link rel="canonical" href="http://thedigitallink.net/posts/alexaskill/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://thedigitallink.net/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="http://thedigitallink.net/css/custom.css" />
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.55.6" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://thedigitallink.net/">
+      tdl-jturner
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/posts/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/events/">Events</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/about/">About</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Alexa : Build me a skill</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-10-03T07:36:56-07:00'>
+                October 3, 2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              6 minutes read
+            </span>
+          </div>
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>The other day I was asked to look in to how we could build an Alexa skill that interacted with an onsite service. This was a lot more fun than expected and I wanted to share it as a blog post.</p>
+
+<h2 id="creating-a-skill">Creating A Skill</h2>
+
+<p>First things first, head over to the <a href="https://developer.amazon.com/en-US/alexa">Alexa developer</a> page and sign up for an account.</p>
+
+<p>Once in the console, we will create a new skill. Let&rsquo;s go with an audio only simple python script hosted in AWS for us. To do so, select a &lsquo;Alexa-Host (Python)&rsquo; skill. This is going to give you an all in one environment including a code editor and quick deployment of your python script as a Lambda function. As it is a Lambda, the code will run without the need for a server or any other concerns of yours.</p>
+
+<p>This is where things start to get a bit more complicated and seems overwhelming at first but really its not too bad. There are three main that we will focus on for the demo: Build, Code, and Test.</p>
+
+<h2 id="build-the-voice-model">Build - The Voice Model</h2>
+
+<p>In an Alexa skill, you are taking verbal commands and mapping them to your functions. The build screen is focused on building out the model to do so. Let&rsquo;s say you wanted a command like: &ldquo;tell mr robot to save the world&rdquo;. In this command &ldquo;Mr Robot&rdquo; would be the invocation and &ldquo;Save the world&rdquo; would be the intent utterance.</p>
+
+<p>To set an invocation, click the invocation on the menu then simply give it a name. The page has some details but the key is to set a two word command.</p>
+
+<p>The intents are going to be all the actions we want to map. For each intent, you can have one or more utterances. If my command was the SaveTheWorldIntent then I might have an utterance of &ldquo;save the world&rdquo; but maybe also &ldquo;save world&rdquo;, &ldquo;my world needs saving&rdquo;, and &ldquo;save all the things&rdquo;. This can be done with the following:</p>
+
+<ol>
+<li>Click the &ldquo;Add&rdquo; button next to Intents</li>
+<li>Enter a name: SaveTheWorldIntent</li>
+<li>Then enter each of the utterances (Ignore slots for now, I&rsquo;ll come back to those)</li>
+<li>Now just save and build your model from the menu at the top.</li>
+</ol>
+
+<h2 id="code-python-lambda">Code - Python Lambda</h2>
+
+<p>There is definitely a robust Alexa API and Python can do far more than this but I don&rsquo;t want Alexa to perform any logic for me. I just want it to be a proxy and call an API which makes my code quite simple. If you want to do more, feel free to run with it.</p>
+
+<p>Since we are calling an API, let&rsquo;s add the <a href="https://pypi.org/project/requests/">requests</a> library to our project. We then add a procedure for the API and finally our handler logic:</p>
+
+<ol>
+<li>Open requrements.txt</li>
+<li>Add a line:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">requests==2.22.0</code></pre></div></li>
+<li>Open lambda_function.py</li>
+<li>Add the import statement
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="font-weight:bold">import</span> <span style="font-weight:bold">requests</span></code></pre></div></li>
+<li>Add some global configuration variables
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">api_url=http://mypublicendpoint/api
+api_username=MyUser
+api_password=MySecurePassword</code></pre></div></li>
+<li>Add a callAPI function
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="font-weight:bold">def</span> callApi(api):
+    resp = requests.get(api_url+api,auth=(api_username,api_password))
+    <span style="font-weight:bold">if</span> resp.status_code != 200:
+        <span style="font-style:italic"># This means something went wrong.</span>
+        speak_output=<span style="font-style:italic">&#34;I failed you!&#34;</span>
+    speak_output=resp.text
+    <span style="font-weight:bold">return</span> speak_output</code></pre></div></li>
+<li>Add the snippet:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="font-weight:bold">class</span> <span style="font-weight:bold">SaveTheWorldIntentHandler</span>(AbstractRequestHandler):
+    <span style="font-style:italic">&#34;&#34;&#34;Handler for Save The World.&#34;&#34;&#34;</span>
+    <span style="font-weight:bold">def</span> can_handle(self, handler_input):
+        <span style="font-style:italic"># type: (HandlerInput) -&gt; bool</span>
+        <span style="font-weight:bold">return</span> ask_utils.is_intent_name(<span style="font-style:italic">&#34;SaveTheWorldIntent&#34;</span>)(handler_input)
+
+    <span style="font-weight:bold">def</span> handle(self, handler_input):
+        <span style="font-style:italic"># type: (HandlerInput) -&gt; Response</span>
+
+        speak_output = callApi(<span style="font-style:italic">&#39;/savetheworld/?userId={}&#39;</span>.format(handler_input.request_envelope.session.user.user_id))
+
+        <span style="font-weight:bold">return</span> (
+            handler_input.response_builder
+                .speak(speak_output)
+                .response
+        )</code></pre></div></li>
+<li>Add the handler to the handler list at the end
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sb.add_request_handler(SaveTheWorldIntentHandler())</code></pre></div></li>
+</ol>
+
+<p>The snippet above has a few important items to look at. First, anywhere that references SaveTheWorld must map directly (including case) to the name of the intent. Inside are two functions, can_handle to return if it handles the provided intent and then handle to perform whatever is needed. In this case, that action is to call an API then speak whatever the api says. I also include the user_id in the API call for reference to the unique id for the given user.</p>
+
+<h2 id="test">Test</h2>
+
+<p>If all went according to plan, you should now have an extremely simple skill that will run or almost. Pop over to the Test tab and enable testing in Development. Now there is an Alexa Simulator that lets you work right there in the console with your new skill.</p>
+
+<p>In the box either hold the mic and speak your commands or just type : tell mr robot to save the world. If everything went perfectly you&rsquo;ll get the proper response. More likely, something went wrong and you got one of the following:</p>
+
+<ul>
+<li>You just triggered SaveTheWorldIntent -&gt; This means you likely have a typo in your handler or missed adding the handler at the end.</li>
+<li>&lt;Audio only response&gt; / Error chime -&gt; This means something failed on the Lambda side. If that happens, you can pop back to the Code tab then in the bottom left click &ldquo;Logs: Amazon CloudWatch&rdquo; which open ups the CloudWatch log viewing tool. Here just click &ldquo;Search Log Group&rdquo; and scroll through to find your error.</li>
+<li>JSON or other API level error message -&gt; You likely successfully hit your API but failed to send the right inputs.</li>
+<li>Other unknown or wrong response -&gt; Check your model utterances.</li>
+</ul>
+
+<p>You can also log in to your dev account with your Alexa device (or even the phone app) and the skill is available for testing.</p>
+
+<h2 id="advanced-slots-and-collecting-data">Advanced - Slots and Collecting Data</h2>
+
+<p>On the Build page, there was a concept of slots. A slot can serve two main purposes for you. One is to allow multiple values in a one utterance (I.E. I want a large puppy and  I want a small puppy can become I want a {size} puppy). The second is to be more flexible and collect some data.</p>
+
+<p>Let&rsquo;s say you want have your widget learn your name. This is easy enough:</p>
+
+<ol>
+<li>Add a new intent called SayMyNameIntent</li>
+<li>Add an utterance of &ldquo;my name is {name}&rdquo;</li>
+<li>Click to Create a new slot when prompted</li>
+<li>Type &ldquo;name&rdquo; for the slot name and click the +</li>
+<li>For the slot type, choose AMAZON.FirstName</li>
+<li>Save and Build your model</li>
+<li>Go to your lambda_function.py in the Code tab</li>
+<li>Add our new intent handler. Note the new line of grabbing the variable via &ldquo;ask_utils.get_slot_value&rdquo;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="font-weight:bold">class</span> <span style="font-weight:bold">SayMyNameIntentHandler</span>(AbstractRequestHandler):
+    <span style="font-style:italic">&#34;&#34;&#34;Handler for Save The World.&#34;&#34;&#34;</span>
+    <span style="font-weight:bold">def</span> can_handle(self, handler_input):
+        <span style="font-style:italic"># type: (HandlerInput) -&gt; bool</span>
+        <span style="font-weight:bold">return</span> ask_utils.is_intent_name(<span style="font-style:italic">&#34;SayMyName&#34;</span>)(handler_input)
+
+    <span style="font-weight:bold">def</span> handle(self, handler_input):
+        <span style="font-style:italic"># type: (HandlerInput) -&gt; Response</span>
+
+        name = username = ask_utils.get_slot_value(handler_input,<span style="font-style:italic">&#34;name&#34;</span>)
+
+        speak_output = <span style="font-style:italic">&#34;Your name is &#34;</span>+name
+
+        <span style="font-weight:bold">return</span> (
+            handler_input.response_builder
+                .speak(speak_output)
+                .response
+        )</code></pre></div></li>
+<li>Add the handler to the handler list at the end
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sb.add_request_handler(SayMyNameIntentHandler())</code></pre></div></li>
+<li>Save and Deploy</li>
+</ol>
+
+<h2 id="have-fun">Have Fun!</h2>
+
+<p>This is just a start but is enough to be dangerous. Be careful and secure it properly.</p>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>Comments and Opinions Are My Own.<br/>All Code is for Demonstration Purposes Only</p>
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on tdl-jturner</title>
+    <link>http://thedigitallink.net/post/</link>
+    <description>Recent content in Posts on tdl-jturner</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 03 Oct 2019 07:36:56 -0700</lastBuildDate>
+    
+	<atom:link href="http://thedigitallink.net/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Alexa : Build me a skill</title>
+      <link>http://thedigitallink.net/post/heyalexa/</link>
+      <pubDate>Thu, 03 Oct 2019 07:36:56 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/post/heyalexa/</guid>
+      <description>The other day I was asked to look in to how we could build an Alexa skill that interacted with an onsite service. I figured this would make a nice blog post.
+Creating A Skill First things first, head over to the Alexa developer page and sign up for an account.
+Once in the console, we will create a skill. For my project, I went with an &amp;lsquo;Alexa-Host (Python)&amp;rsquo; skill.</description>
+    </item>
+    
+  </channel>
+</rss>
