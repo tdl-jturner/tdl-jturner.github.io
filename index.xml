@@ -6,10 +6,19 @@
     <description>Recent content on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 03 Oct 2019 07:36:56 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 07 Oct 2019 08:59:44 -0700</lastBuildDate>
     
 	<atom:link href="http://thedigitallink.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spark Streaming on Oracle Cloud</title>
+      <link>http://thedigitallink.net/posts/ocistreaming/</link>
+      <pubDate>Mon, 07 Oct 2019 08:59:44 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/posts/ocistreaming/</guid>
+      <description>I&amp;rsquo;ve been enjoying the free trial of Oracle Cloud Infrastructure and seeing what it can do. I&amp;rsquo;ve used their products heavily in the past and love the database so figured the cloud environment would be fun. One area that I was looking at was their Big Data Compute platform which is basically a Spark / Hadoop cluster that you spin up and attach to your Object Store. They also have their Streaming which is effectively a simple pub/sub queue service.</description>
+    </item>
     
     <item>
       <title>Alexa : Build me a skill</title>

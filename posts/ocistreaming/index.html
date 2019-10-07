@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Josh Turner">
+    
+    
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spark Streaming on Oracle Cloud"/>
+<meta name="twitter:description" content="I&rsquo;ve been enjoying the free trial of Oracle Cloud Infrastructure and seeing what it can do. I&rsquo;ve used their products heavily in the past and love the database so figured the cloud environment would be fun. One area that I was looking at was their Big Data Compute platform which is basically a Spark / Hadoop cluster that you spin up and attach to your Object Store. They also have their Streaming which is effectively a simple pub/sub queue service."/>
+
+    <meta property="og:title" content="Spark Streaming on Oracle Cloud" />
+<meta property="og:description" content="I&rsquo;ve been enjoying the free trial of Oracle Cloud Infrastructure and seeing what it can do. I&rsquo;ve used their products heavily in the past and love the database so figured the cloud environment would be fun. One area that I was looking at was their Big Data Compute platform which is basically a Spark / Hadoop cluster that you spin up and attach to your Object Store. They also have their Streaming which is effectively a simple pub/sub queue service." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://thedigitallink.net/posts/ocistreaming/" />
+<meta property="article:published_time" content="2019-10-07T08:59:44-07:00"/>
+<meta property="article:modified_time" content="2019-10-07T08:59:44-07:00"/>
+
+
+    
+      <base href="http://thedigitallink.net/posts/ocistreaming/">
+    
+    <title>
+  Spark Streaming on Oracle Cloud · tdl-jturner
+</title>
+
+    
+      <link rel="canonical" href="http://thedigitallink.net/posts/ocistreaming/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://thedigitallink.net/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="http://thedigitallink.net/css/custom.css" />
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.55.6" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://thedigitallink.net/">
+      tdl-jturner
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/posts/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/events/">Events</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="http://thedigitallink.net/about/">About</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Spark Streaming on Oracle Cloud</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-10-07T08:59:44-07:00'>
+                October 7, 2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              4 minutes read
+            </span>
+          </div>
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>I&rsquo;ve been enjoying the <a href="https://www.oracle.com/cloud/free/">free trial</a> of Oracle Cloud Infrastructure and seeing what it can do. I&rsquo;ve used their products heavily in the past and love the database so figured the cloud environment would be fun. One area that I was looking at was their <a href="https://www.oracle.com/big-data/">Big Data Compute</a> platform which is basically a Spark / Hadoop cluster that you spin up and attach to your Object Store. They also have their <a href="https://www.oracle.com/big-data/streaming/">Streaming</a> which is effectively a simple pub/sub queue service.</p>
+
+<p>One of the projects I wanted to investigate was a simple data processing platform that received unstructured data in a queue then use Spark Streaming to process that data and push it out to the Object Store / Data Lake and also an Autonomous Data Warehouse. This would look something like this:
+
+<script src="http://thedigitallink.net/js/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({startOnLoad: true, theme: 'neutral'});
+</script>
+<div class="mermaid" align="center">
+graph TD
+    Client-->Queue
+    Queue-->Spark
+    Spark-->DataLake[Data Lake]
+    Spark-->DataWarehouse[Data Warehouse]
+</div>
+</p>
+
+<p>Or in OCI Terms:
+
+<script src="http://thedigitallink.net/js/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({startOnLoad: true, theme: 'neutral'});
+</script>
+<div class="mermaid" align="center">
+graph TD
+    Client-->Queue[Analytics Streaming]
+    Queue-->Spark[Big Data - Compute Edition]
+    Spark-->ObjectStore[Object Store]
+    Spark-->DataWarehouse[Autonomous Data Warehouse]
+</div>
+</p>
+
+<h2 id="streaming">Streaming</h2>
+
+<p>The streaming product is easy enough to spin up but interactions with it were best done through their <a href="https://docs.cloud.oracle.com/iaas/Content/API/Concepts/sdks.htm">SDK</a> which is available for Java, Python, Ruby, and Go. For my purposes, I&rsquo;ll be using both Python and Java. For working with the queue, I modified their example code and put together a simple Python utility called <a href="https://github.com/tdl-jturner/oci-streaming-spark-receiver/blob/master/stream.py">stream.py</a>. This does require you first install and configure the Python SDK as described in the <a href="https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/cliinstall.htm">install docs</a>). Here is the usage of it:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">usage: stream.py [-h] [--stream STREAM] [--partitions PARTITIONS]
+                 [--compartment COMPARTMENT] [--consume] [--group GROUP]
+                 [--instance INSTANCE] [--limit LIMIT] [--produce MESSAGE]
+                 [--delete]
+
+Interact with OCI Stream
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --stream STREAM       name of stream
+  --partitions PARTITIONS
+                        number of partitions
+  --compartment COMPARTMENT
+                        UUID of compartment
+  --consume             Consume the stream and print messages
+  --group GROUP         Name of Consumer Group
+  --instance INSTANCE   Name of Consumer Instance
+  --limit LIMIT         Limit number of consumed messages
+  --produce MESSAGE     Produce a message
+  --delete              Delete stream</code></pre></div>
+Now we have a very simple command line widget for producing and consuming our stream. If the named stream does not exist, it will create it. I also used this to infinitely generate data with:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="font-weight:bold">while</span> true; <span style="font-weight:bold">do</span> ./stream.py --produce <span style="font-style:italic">&#34;DateLoop:`date`&#34;</span>;sleep 1;<span style="font-weight:bold">done</span></code></pre></div>
+You can consume and view this in another terminal with:
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./stream.py --consume</code></pre></div></p>
+
+<h2 id="big-data-compute-edition">Big Data - Compute Edition</h2>
+
+<p>This is a platform offering of OCI and thus took a bit more to spin up but wasn&rsquo;t too bad. Once you fill out the forms and wait for it to provision you end up with a running cluster including a Zeppelin notebook that you can run Spark, PySpark, or MapReduce jobs on. Instead of reiterating all the steps, I&rsquo;ll point you to the <a href="https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/bdcsce/gettingstartedwithbdcsce/gettingstartedwithbdcsce.html">Oracle By Example: Getting Started with Oracle Big Data Cloud Service - Compute Edition</a>.</p>
+
+<p>The platform came prebaked with Object store functionality which was great but I could not get it running with the streaming. The only reference I could find was a reference by <a href="https://twitter.com/Igfasouza/status/1165337034669600768">Igor Souza on Twitter</a> mentioning starting a custom receiver to do this task.</p>
+
+<p>So I figured, I&rsquo;d take this chance to learn more about <a href="https://spark.apache.org/docs/latest/streaming-custom-receivers.html">Custom Receivers</a> and build one. It is now available on my github at <a href="https://github.com/tdl-jturner/oci-streaming-spark-receiver">oci-streaming-spark-receiver</a>. As noted in the readme, it should be installed to the BDC node in order to be able to use <a href="https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/callingservicesfrominstances.htm">InstancePrincipalsAuthentication</a> which basically lets it authenticate as the instance instead of providing credentials and keys.</p>
+
+<h2 id="sample-job">Sample Job</h2>
+
+<p>Now with that in place you can do a streaming job like the following which batches the data every 10 seconds and prints it out. You could easily change that to send the data out to your data lake, autonomous data warehouse, etc.
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="font-weight:bold">Logger</span>.getRootLogger.setLevel(<span style="font-weight:bold">Level</span>.<span style="font-weight:bold">INFO</span>)
+<span style="font-weight:bold">val</span> conf <span style="font-weight:bold">=</span> <span style="font-weight:bold">new</span> <span style="font-weight:bold">SparkConf</span>().setAppName(<span style="font-style:italic">&#34;Streaming Example&#34;</span>).setMaster(<span style="font-style:italic">&#34;local[2]&#34;</span>);
+<span style="font-style:italic">// Create a Scala Spark Context.
+</span><span style="font-style:italic"></span><span style="font-weight:bold">val</span> sc <span style="font-weight:bold">=</span> <span style="font-weight:bold">new</span> <span style="font-weight:bold">SparkContext</span>(conf)
+<span style="font-weight:bold">val</span> ssc <span style="font-weight:bold">=</span> <span style="font-weight:bold">new</span> <span style="font-weight:bold">StreamingContext</span>(sc, <span style="font-weight:bold">Seconds</span>(10))
+<span style="font-weight:bold">val</span> customReceiverStream <span style="font-weight:bold">=</span> ssc.receiverStream(
+  <span style="font-weight:bold">new</span> <span style="font-weight:bold">OCIStreamReceiver</span>(
+    <span style="font-weight:bold">OCIStreamReceiver</span>.<span style="font-weight:bold">AuthProvider</span>.<span style="font-weight:bold">INSTANCE_PRINCIPALS</span>,
+    <span style="font-style:italic">&#34;&lt;STREAM_ID&gt;&#34;</span>,
+    <span style="font-style:italic">&#34;&lt;STREAM_ENDPOINT&gt;&#34;</span>,
+    <span style="font-style:italic">&#34;&lt;GROUP_NAME&gt;&#34;</span>,
+    <span style="font-style:italic">&#34;&lt;INSTANCE_NAME&gt;&#34;</span>,
+    100))
+customReceiverStream.print()
+ssc.start()
+ssc.awaitTermination()</code></pre></div></p>
+
+<h2 id="moving-forward">Moving Forward</h2>
+
+<p>My trial did expire so I didn&rsquo;t get the whole flow completed. However, the pieces are there and adding in the last few bits wouldn&rsquo;t take much more than modifying the sample job.</p>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>Comments and Opinions Are My Own.<br/>All Code is for Demonstration Purposes Only</p>
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
