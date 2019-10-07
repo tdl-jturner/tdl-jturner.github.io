@@ -21,12 +21,30 @@
     </item>
     
     <item>
+      <title>Data and Drinks with DataStax &amp; Confluent</title>
+      <link>http://thedigitallink.net/events/2019-10-17-dataanddrinks/</link>
+      <pubDate>Mon, 07 Oct 2019 16:30:00 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/events/2019-10-17-dataanddrinks/</guid>
+      <description>Date : October 17, 2019 Location: Seattle, WA Event: Data and Drinks with DataStax &amp;amp; Confluent  Abstract Discussion about how T-Mobile has leveraged DataStax to overcome data challenges.</description>
+    </item>
+    
+    <item>
       <title>Seattle Cassandra Users: An OSS Java Abstraction Layer for Cassandra</title>
       <link>http://thedigitallink.net/events/2019-06-26-cassandraseattleusers-casquatch/</link>
       <pubDate>Wed, 26 Jun 2019 15:38:02 -0700</pubDate>
       
       <guid>http://thedigitallink.net/events/2019-06-26-cassandraseattleusers-casquatch/</guid>
       <description>Date : June 26, 2019 Location: Seattle, WA Event: Seattle Cassandra Users  Abstract Project Casquatch is a database abstraction layer with code generation designed to streamline Cassandra development. Out of the box it comes pre-tuned with high available policies including load balancing, geo-redundancy, connection pooling, etc., sitting on top of the DataStax driver using native APIs. All of this is abstracted behind the ever prevalent POJO. Instead of writing CQL, we utilize generic programming that allows you to simply pass a generated POJO to a save() method or populate with a getById().</description>
+    </item>
+    
+    <item>
+      <title>DataStax Day at the Ballpark</title>
+      <link>http://thedigitallink.net/events/2019-06-04-datastaxday/</link>
+      <pubDate>Tue, 04 Jun 2019 18:00:00 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/events/2019-06-04-datastaxday/</guid>
+      <description>Date : June 06, 2019 Location: Seattle, WA Event: DataStax Day at the Ballpark  Abstract High level customer experience presentation with Q&amp;amp;A</description>
     </item>
     
     <item>
