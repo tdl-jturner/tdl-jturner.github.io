@@ -1,4 +1,4 @@
-hugo -t hugo-coder
+hugo -t hugo-coder -F
 cd public
 git add -f .
 git commit -m "Updated From Source"
