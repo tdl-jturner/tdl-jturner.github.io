@@ -1,6 +1,6 @@
 +++
 draft = false
-date = 2019-10-07T16:30:00-07:00
+date = 2019-10-17T16:30:00-07:00
 title = "Data and Drinks with DataStax & Confluent"
 +++
 
