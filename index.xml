@@ -6,10 +6,19 @@
     <description>Recent content on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 09 Oct 2019 18:00:00 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 17 Oct 2019 16:30:00 -0700</lastBuildDate>
     
 	<atom:link href="http://thedigitallink.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Data and Drinks with DataStax &amp; Confluent</title>
+      <link>http://thedigitallink.net/events/2019-10-17-dataanddrinks/</link>
+      <pubDate>Thu, 17 Oct 2019 16:30:00 -0700</pubDate>
+      
+      <guid>http://thedigitallink.net/events/2019-10-17-dataanddrinks/</guid>
+      <description>Date : October 17, 2019 Location: Seattle, WA Event: Data and Drinks with DataStax &amp;amp; Confluent  Abstract Discussion about how T-Mobile has leveraged DataStax to overcome data challenges.</description>
+    </item>
     
     <item>
       <title>Seattle Cassandra Users: Apache Cassandra At T-Mobile</title>
@@ -18,15 +27,6 @@
       
       <guid>http://thedigitallink.net/events/2019-10-09-cassandraseattleusers-t-mobile/</guid>
       <description>Date : October 9, 2019 Location: Seattle, WA Event: Seattle Cassandra Users  Abstract T-Mobile is using Cassandra to back many of our national platforms including device activations, eSim management, bill payments, and T-Mobile Digits. In this talk we will discuss our journey as we migrated away from legacy relational databases and the challenges of having to overcome skill gaps, develop automation, and create tooling to manage our new distributed data system.</description>
-    </item>
-    
-    <item>
-      <title>Data and Drinks with DataStax &amp; Confluent</title>
-      <link>http://thedigitallink.net/events/2019-10-17-dataanddrinks/</link>
-      <pubDate>Mon, 07 Oct 2019 16:30:00 -0700</pubDate>
-      
-      <guid>http://thedigitallink.net/events/2019-10-17-dataanddrinks/</guid>
-      <description>Date : October 17, 2019 Location: Seattle, WA Event: Data and Drinks with DataStax &amp;amp; Confluent  Abstract Discussion about how T-Mobile has leveraged DataStax to overcome data challenges.</description>
     </item>
     
     <item>
