@@ -8,6 +8,7 @@ slug = ""
 * Date : June 26, 2019
 * Location: Seattle, WA
 * Event: [Seattle Cassandra Users](https://www.meetup.com/Cassandra-Seattle-Users/events/262450272/)
+* Slides: [SlideShare](https://www.slideshare.net/JoshTurner5/seattle-cassandra-users-an-oss-java-abstraction-layer-for-cassandra)
 
 ### Abstract
 

@@ -2,12 +2,13 @@
 draft = false
 date = 2019-10-09T18:00:00-07:00
 title = "Seattle Cassandra Users: Apache Cassandra At T-Mobile"
-slug = ""
 +++
 
 * Date : October 9, 2019
 * Location: Seattle, WA
 * Event: [Seattle Cassandra Users](https://www.meetup.com/Cassandra-Seattle-Users/events/264436259/)
+* Video: [YouTube](https://www.youtube.com/watch?v=r7UqWeHCcz8)
+* Slides: [SlideShare](https://www.slideshare.net/JoshTurner5/cassandra-tmobile/JoshTurner5/cassandra-tmobile)
 
 ### Abstract
 
