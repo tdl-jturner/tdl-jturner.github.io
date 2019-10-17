@@ -26,7 +26,7 @@
       <pubDate>Wed, 09 Oct 2019 18:00:00 -0700</pubDate>
       
       <guid>http://thedigitallink.net/events/2019-10-09-cassandraseattleusers-t-mobile/</guid>
-      <description>Date : October 9, 2019 Location: Seattle, WA Event: Seattle Cassandra Users  Abstract T-Mobile is using Cassandra to back many of our national platforms including device activations, eSim management, bill payments, and T-Mobile Digits. In this talk we will discuss our journey as we migrated away from legacy relational databases and the challenges of having to overcome skill gaps, develop automation, and create tooling to manage our new distributed data system.</description>
+      <description>Date : October 9, 2019 Location: Seattle, WA Event: Seattle Cassandra Users Video: YouTube Slides: SlideShare  Abstract T-Mobile is using Cassandra to back many of our national platforms including device activations, eSim management, bill payments, and T-Mobile Digits. In this talk we will discuss our journey as we migrated away from legacy relational databases and the challenges of having to overcome skill gaps, develop automation, and create tooling to manage our new distributed data system.</description>
     </item>
     
     <item>
@@ -35,7 +35,7 @@
       <pubDate>Wed, 26 Jun 2019 15:38:02 -0700</pubDate>
       
       <guid>http://thedigitallink.net/events/2019-06-26-cassandraseattleusers-casquatch/</guid>
-      <description>Date : June 26, 2019 Location: Seattle, WA Event: Seattle Cassandra Users  Abstract Project Casquatch is a database abstraction layer with code generation designed to streamline Cassandra development. Out of the box it comes pre-tuned with high available policies including load balancing, geo-redundancy, connection pooling, etc., sitting on top of the DataStax driver using native APIs. All of this is abstracted behind the ever prevalent POJO. Instead of writing CQL, we utilize generic programming that allows you to simply pass a generated POJO to a save() method or populate with a getById().</description>
+      <description>Date : June 26, 2019 Location: Seattle, WA Event: Seattle Cassandra Users Slides: SlideShare  Abstract Project Casquatch is a database abstraction layer with code generation designed to streamline Cassandra development. Out of the box it comes pre-tuned with high available policies including load balancing, geo-redundancy, connection pooling, etc., sitting on top of the DataStax driver using native APIs. All of this is abstracted behind the ever prevalent POJO.</description>
     </item>
     
     <item>

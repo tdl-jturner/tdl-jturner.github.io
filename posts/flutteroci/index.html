@@ -111,7 +111,7 @@ Create the compartment as follows: 1. Menu -&gt; Identity -&gt; Compartment 2. C
             </span>
             <span class="reading-time">
               <i class="fas fa-clock"></i>
-              One minute read
+              2 minutes read
             </span>
           </div>
           
@@ -134,6 +134,19 @@ Create the compartment as follows: 1. Menu -&gt; Identity -&gt; Compartment 2. C
 3. Name it &ldquo;flutter-compartment&rdquo;
 4. Create Compartment</p>
 
+<h2 id="permissions">Permissions</h2>
+
+<p>In order for Kubernetes to run, there needs to be a new policy created.</p>
+
+<ol>
+<li>Menu -&gt; Identity -&gt; Policies</li>
+<li>Under Compartment, select the &ldquo;(root)&rdquo; compartment</li>
+<li>Create Policy
+Name: kubernetes-policy
+Description: Kubernetes Policy
+Statement: Allow service OKE to manage all-resources in tenancy</li>
+</ol>
+
 <h2 id="networking">Networking</h2>
 
 <p>We&rsquo;ll create a basic network setup using defaults. This creates a simple setup that uses three availability domains and is internet accessible with fairly open security.</p>
@@ -146,6 +159,19 @@ Create the compartment as follows: 1. Menu -&gt; Identity -&gt; Compartment 2. C
    Create Virtual Cloud Network Plus Related Resources
    CIDR Block: 10.0.0.0/16
    All other values are left default</p>
+
+<h2 id="create-cluster">Create Cluster</h2>
+
+<ol>
+<li>Menu -&gt; Developer Services -&gt; Container Clusters (OKE)</li>
+<li>Create Cluster
+Name: flutter-oke
+Quick Create
+Create Virtual Cloud Network - Public
+Create Node Pool
+  Shape: VM.Standard1.1
+  Number Of Nodes: 3</li>
+</ol>
 
       </div>
 
