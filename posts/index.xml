@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on tdl-jturner</title>
@@ -6,10 +6,19 @@
     <description>Recent content in Posts on tdl-jturner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 07 Oct 2019 08:59:44 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 08 Nov 2019 03:15:31 +0000</lastBuildDate>
     
 	<atom:link href="http://thedigitallink.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Coding in the Cloud - VSCode on OCI Free Tier</title>
+      <link>http://thedigitallink.net/posts/ocidev/</link>
+      <pubDate>Fri, 08 Nov 2019 03:15:31 +0000</pubDate>
+      
+      <guid>http://thedigitallink.net/posts/ocidev/</guid>
+      <description>Oracle Cloud recently started offering a free tier that gives you two micro VMs each with 1GB Ram and 1&amp;frasl;8 OCPU (Looks like this results in 2 cores at ~2Ghz). I thought this would be a fun chance to checkout Code Server on my new iPad Pro for some mobile development. Code Server allows you to run Visual Studio Code through a web browser thus allowing you to run it from anywhere.</description>
+    </item>
     
     <item>
       <title>Spark Streaming on Oracle Cloud</title>
@@ -29,17 +38,6 @@
       <description>The other day I was asked to look in to how we could build an Alexa skill that interacted with an onsite service. This was a lot more fun than expected and I wanted to share it as a blog post.
 Creating A Skill First things first, head over to the Alexa developer page and sign up for an account.
 Once in the console, we will create a new skill.</description>
-    </item>
-    
-    <item>
-      <title>Flutter On OCI</title>
-      <link>http://thedigitallink.net/posts/flutteroci/</link>
-      <pubDate>Fri, 27 Sep 2019 07:29:55 -0700</pubDate>
-      
-      <guid>http://thedigitallink.net/posts/flutteroci/</guid>
-      <description>Today&amp;rsquo;s post is going to get Flutter up and running in Oracle Cloud Infrastructure (OCI). In order to get started, it is assumed that you&amp;rsquo;ve created an account and signed up for the 30 day free trial at https://www.oracle.com/cloud/free/.
-Compartment OCI containers compartments which allow you to group and isolate components for organization and / or security.
-Create the compartment as follows: 1. Menu -&amp;gt; Identity -&amp;gt; Compartment 2. Create new compartment 3.</description>
     </item>
     
     <item>

@@ -17,8 +17,8 @@
 <meta property="og:description" content="This is a continuation of the initial Flutter Design. In this post, I&rsquo;ll talk about writing the actual code and how it developed from an idea to a running project. When I started laying out Flutter, I wanted to make it so that each microservice was simple and self contained yet also consistent designed for modularity. I also wanted to start with a framework that I knew well and was very accessible for me." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://thedigitallink.net/posts/flutter-writing-the-code/" />
-<meta property="article:published_time" content="2019-09-11T10:03:58-07:00"/>
-<meta property="article:modified_time" content="2019-09-11T10:03:58-07:00"/>
+<meta property="article:published_time" content="2019-09-11T10:03:58-07:00" />
+<meta property="article:modified_time" content="2019-09-11T10:03:58-07:00" />
 
 
     
@@ -55,7 +55,7 @@
     <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="http://thedigitallink.net/img/favicon-16x16.png" sizes="16x16">
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.59.1" />
   </head>
 
   <body class=" ">
@@ -171,7 +171,7 @@ Example of this can be seen in <a href="https://github.com/tdl-jturner/flutter/b
 <p>Once the client is wired up, querying Eureka is done through the EurekaClient object.
 First, we auto wire that up with:
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Autowired
-<span style="font-weight:bold">private</span> EurekaClient eurekaClient;</code></pre></div>
+<span style="">private EurekaClient </span>eurekaClient;</code></pre></div>
 Find the next client with
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">eurekaClient.getNextServerFromEureka(<span style="font-style:italic">&#34;ServiceName&#34;</span>,<span style="font-weight:bold">false</span>);</code></pre></div>
 or if you want https then use
@@ -187,17 +187,17 @@ Example of this can be seen in <a href="https://github.com/tdl-jturner/flutter/b
 <p>First there is a model which mimics the table in Cassandra as a simple mapping of two user names in this example. (See <a href="https://tmobile.github.io/casquatch/overview/concepts/#casquatch-entity">Casquatch Manual</a> for more information on this.)
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@CasquatchEntity
 @Getter @Setter @NoArgsConstructor
-<span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Follow</span> <span style="font-weight:bold">extends</span> AbstractCasquatchEntity {
+<span style="">public class Follow extends </span>AbstractCasquatchEntity {
     @PartitionKey
-    <span style="font-weight:bold">private</span> String follower;
-    <span style="font-weight:bold">private</span> String author;
+    <span style="">private String </span>follower;
+    <span style="">private String </span>author;
 }</code></pre></div></p>
 
 <p>The REST services exist in a class annotated with @RestController from Spring and contain simple API Wrappers from <a href="https://github.com/tmobile/casquatch">Casquatch</a>
 . I started using the <a href="https://tmobile.github.io/casquatch/features/restapi/">auto generated rest api</a> then stripped out what I did not need.
 An API would look something like this
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@RequestMapping(value = <span style="font-style:italic">&#34;/save&#34;</span>, method= RequestMethod.POST)
-<span style="font-weight:bold">public</span> Response&lt;Void&gt; save(@RequestBody Request&lt;Follow&gt; request) {
+<span style="">public Response</span>&lt;<span style="">Void&gt; save</span>(@RequestBody <span style="">Request&lt;Follow&gt; request</span>) {
     log.trace(<span style="font-style:italic">&#34;POST | /save | {}&#34;</span>,request.toString());
     <span style="font-weight:bold">return</span> <span style="font-weight:bold">new</span> Response&lt;&gt;(casquatchDao.save(Follow.class,request.getPayload(),request.getQueryOptions()), Response.Status.SUCCESS);
 }</code></pre></div>
@@ -215,21 +215,21 @@ Example of this can be seen in <a href="https://github.com/tdl-jturner/flutter/b
 . I did use a few Abstract base classes to deduplicate the code but the models are little more than a class to parse the JSON.</p>
 
 <p>The URIs for each API are derived from a simple utility function as follows:
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">private</span> URI getUri(String service,String api) {
-    InstanceInfo instanceInfo = eurekaClient.getNextServerFromEureka(service.toUpperCase(),<span style="font-weight:bold">false</span>);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">private URI </span>getUri(<span style="">String service</span>,<span style="">String api</span>) {
+    <span style="">InstanceInfo instanceInfo </span>= eurekaClient.getNextServerFromEureka(service.toUpperCase(),<span style="font-weight:bold">false</span>);
     <span style="font-weight:bold">return</span> URI.create(String.format(<span style="font-style:italic">&#34;http://%s:%s/%s%s&#34;</span>,instanceInfo.getIPAddr(),instanceInfo.getPort(),service.toLowerCase(),api));
 }</code></pre></div>
 This function queries Eureka to get the instance information and combines that with the service name to build a URI like <a href="http://localhost:51235/user-dao/get">http://localhost:51235/user-dao/get</a> for the api call.</p>
 
 <p>A service API then looks something like the following:
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@RequestMapping(value = <span style="font-style:italic">&#34;/get/{id}&#34;</span>, method=RequestMethod.GET)
-<span style="font-weight:bold">public</span> ResponseEntity&lt;Message&gt; getMessage(@PathVariable String id) {
+<span style="">public ResponseEntity</span>&lt;<span style="">Message&gt; getMessage</span>(@PathVariable <span style="">String id</span>) {
    log.trace(<span style="font-style:italic">&#34;GET | /get/{}&#34;</span>,id);
    <span style="font-weight:bold">try</span> {
-       ResponseEntity&lt;MessageResponse&gt; entity = restTemplate.postForEntity(getUri(<span style="font-style:italic">&#34;message-dao&#34;</span>,<span style="font-style:italic">&#34;/get&#34;</span>),<span style="font-weight:bold">new</span> HttpEntity&lt;&gt;(Message.builder().id(UUID.fromString(id)).build().toRequestString(),httpHeaders), MessageResponse.class);
+       <span style="">ResponseEntity&lt;MessageResponse&gt; entity </span>= restTemplate.postForEntity(getUri(<span style="font-style:italic">&#34;message-dao&#34;</span>,<span style="font-style:italic">&#34;/get&#34;</span>),<span style="font-weight:bold">new</span> HttpEntity&lt;&gt;(Message.builder().id(UUID.fromString(id)).build().toRequestString(),httpHeaders), MessageResponse.class);
        <span style="font-weight:bold">return</span> <span style="font-weight:bold">new</span> ResponseEntity&lt;&gt;(entity.getBody().getPayload().get(0),entity.getStatusCode());
    }
-   <span style="font-weight:bold">catch</span> (Exception e) {
+   <span style="font-weight:bold">catch</span> (<span style="">Exception e</span>) {
        log.trace(<span style="font-style:italic">&#34;ERROR&#34;</span>,e);
        <span style="font-weight:bold">return</span> <span style="font-weight:bold">new</span> ResponseEntity&lt;&gt;(HttpStatus.INTERNAL_SERVER_ERROR);
    }
@@ -242,17 +242,17 @@ Here the code is accepting a simple GET API for something like  message-service/
 
 <p>The random object generator is built using <a href="https://github.com/mtedone/podam">podam</a>
  to populate POJOs with random data and then saves it through the relevant DAO microservice. This looks something like:
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">private</span> User random() {
-    User user = podamFactory.manufacturePojoWithFullData(User.class);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">private User </span>random() {
+    <span style="">User user </span>= podamFactory.manufacturePojoWithFullData(User.class);
     restTemplate.postForEntity(getUri(<span style="font-style:italic">&#34;user-dao&#34;</span>,<span style="font-style:italic">&#34;/save&#34;</span>),<span style="font-weight:bold">new</span> HttpEntity&lt;&gt;(user.toRequestString(),httpHeaders),UserResponse.class);
     <span style="font-weight:bold">return</span> user;
 }</code></pre></div></p>
 
 <p>Now that the POJO is created and saved, a basic service test would look something like:
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Test
-<span style="font-weight:bold">public</span> <span style="">void</span> testGet() {
-    User user = random();
-    ResponseEntity&lt;UserResponse&gt; entity = restTemplate.postForEntity(getUri(<span style="font-style:italic">&#34;user-dao&#34;</span>,<span style="font-style:italic">&#34;/get&#34;</span>),<span style="font-weight:bold">new</span> HttpEntity&lt;&gt;(user.toRequestString(),httpHeaders), UserResponse.class);
+<span style="">public void </span>testGet() {
+    <span style="">User user </span>= random();
+    <span style="">ResponseEntity&lt;UserResponse&gt; entity </span>= restTemplate.postForEntity(getUri(<span style="font-style:italic">&#34;user-dao&#34;</span>,<span style="font-style:italic">&#34;/get&#34;</span>),<span style="font-weight:bold">new</span> HttpEntity&lt;&gt;(user.toRequestString(),httpHeaders), UserResponse.class);
     <span style="font-weight:bold">assert</span>(entity.getStatusCode().is2xxSuccessful());
     assertEquals(user.getUsername(), entity.getBody().getPayload().get(0).getUsername());
 }</code></pre></div>

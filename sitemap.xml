@@ -1,6 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://thedigitallink.net/posts/ocidev/</loc>
+    <lastmod>2019-11-08T03:15:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/posts/</loc>
+    <lastmod>2019-11-08T03:15:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/</loc>
+    <lastmod>2019-11-08T03:15:31+00:00</lastmod>
+  </url>
   
   <url>
     <loc>http://thedigitallink.net/events/2019-10-17-dataanddrinks/</loc>
@@ -10,24 +25,11 @@
   <url>
     <loc>http://thedigitallink.net/events/</loc>
     <lastmod>2019-10-17T16:30:00-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://thedigitallink.net/</loc>
-    <lastmod>2019-10-17T16:30:00-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>http://thedigitallink.net/events/2019-10-09-cassandraseattleusers-t-mobile/</loc>
     <lastmod>2019-10-09T18:00:00-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://thedigitallink.net/posts/</loc>
-    <lastmod>2019-10-07T08:59:44-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -38,11 +40,6 @@
   <url>
     <loc>http://thedigitallink.net/posts/alexaskill/</loc>
     <lastmod>2019-10-03T07:36:56-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://thedigitallink.net/posts/flutteroci/</loc>
-    <lastmod>2019-09-27T07:29:55-07:00</lastmod>
   </url>
   
   <url>
@@ -76,39 +73,33 @@
   </url>
   
   <url>
-    <loc>http://thedigitallink.net/tags/</loc>
-    <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://thedigitallink.net/tags/casquatch/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>http://thedigitallink.net/tags/cassandra/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>http://thedigitallink.net/tags/datastax/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>http://thedigitallink.net/tags/opensource/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://thedigitallink.net/tags/</loc>
+    <lastmod>2019-08-21T15:54:38-07:00</lastmod>
   </url>
   
   <url>
     <loc>http://thedigitallink.net/tags/tmotech/</loc>
     <lastmod>2019-08-21T15:54:38-07:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -133,7 +124,6 @@
   
   <url>
     <loc>http://thedigitallink.net/categories/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>
